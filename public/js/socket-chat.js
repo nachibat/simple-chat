@@ -14,7 +14,8 @@ var usuario = {
 socket.on('connect', function() {
     console.log('Conectado al servidor');
     socket.emit('entrarChat', usuario, function(resp) {
-        console.log('Usuarios conctados: ', resp);
+        // console.log('Usuarios conctados: ', resp);
+        renderizarUsuarios(resp); // esta funcion viene de socket-chat-jquery.js que esta linkeada en chat.html antes de socket-chat.js
     });
 });
 
@@ -34,12 +35,15 @@ socket.on('disconnect', function() {
 
 // Escuchar información
 socket.on('crearMensaje', function(mensaje) {
-    console.log('Servidor:', mensaje);
+    // console.log('Servidor:', mensaje);
+    renderizarMensajes(mensaje, false);
+    scrollBottom();
 });
 
 // Escuchar cambios de usuarios
 socket.on('listaPersonas', function(usuarios) {
-    console.log(usuarios);
+    // console.log(usuarios);
+    renderizarUsuarios(usuarios);
 });
 
 // Mensajes privados
